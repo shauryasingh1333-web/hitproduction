@@ -1,0 +1,150 @@
+/* Responsive Design */
+@media (max-width: 968px) {
+    h1 {
+        font-size: 2.8rem;
+    }
+
+    h2 {
+        font-size: 2.2rem;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.3rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: var(--dark-card);
+        flex-direction: column;
+        padding: 6rem 2rem 2rem;
+        transition: right 0.4s ease;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 300px;
+        margin: 0.5rem 0;
+    }
+
+    .track-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .track-header .btn {
+        align-self: stretch;
+        text-align: center;
+    }
+    
+    .announcement-slide {
+        font-size: 0.8rem;
+    }
+    
+    .chat-box {
+        width: 300px;
+        right: -10px;
+    }
+    
+    /* Link input responsive */
+    .link-input-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .remove-link-btn {
+        width: 100%;
+        padding: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    section {
+        padding: 3rem 0;
+    }
+
+    .service-card, .contact-form {
+        padding: 1.5rem;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    header {
+        top: 30px; /* Adjust for smaller sliding bar on mobile */
+    }
+    
+    .hero {
+        padding-top: 90px; /* Adjust for smaller sliding bar on mobile */
+    }
+    
+    .announcement-bar {
+        height: 30px;
+    }
+    
+    .announcement-slide {
+        font-size: 0.7rem;
+        padding: 0 10px;
+    }
+    
+    .offer-code {
+        font-size: 1.8rem;
+    }
+    
+    .chat-box {
+        width: 280px;
+        right: -20px;
+    }
+    
+    .floating-chat {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .chat-actions {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hit Production - Professional Music Producer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Sliding Announcement Bar - Hotstar Style -->
+    <div class="announcement-bar" id="announcementBar">
+        <div class="announcement-track">
+            <div class="announcement-slide">
+                <i class="fas fa-fire"></i> LIMITED TIME OFFER: Get any cover song professionally produced for just ₹5000 (Regularly ₹8000+)
+                <div class="announcement-countdown" id="announcementCountdown">Loading...</div>
+                <a href="#contact" class="btn" style="padding: 0.3rem 0.8rem; font-size: 0.7rem; margin-left: 10px;" onclick="claimOffer()">
+                    <i class="fas fa-gift"></i> Claim Offer
+                </a>
+            </div>
+            <div class="announcement-slide">
+                <i class="fas fa-star"></i> New Beat Pack Released: Check out my latest production samples
+                <a href="#portfolio" class="btn" style="padding: 0.3rem 0.8rem; font-size: 0.7rem; margin-left: 10px;">
+                    <i class="fas fa-headphones"></i> Listen Now
+                </a>
+            </div>
+            <div class="announcement-slide">
+                <i class="fas fa-fire"></i> LIMITED TIME OFFER: Get any cover song professionally produced for just ₹5000 (Regularly ₹8000+)
+                <div class="announcement-countdown" id="announcementCountdown2">Loading...</div>
+                <a href="#contact" class="btn" style="padding: 0.3rem 0.8rem; font-size: 0.7rem; margin-left: 10px;" onclick="claimOffer()">
+                    <i class="fas fa-gift"></i> Claim Offer
+                </a>
+            </div>
+            <div class="announcement-slide">
+                <i class="fas fa-star"></i> New Beat Pack Released: Check out my latest production samples
+                <a href="#portfolio" class="btn" style="padding: 0.3rem 0.8rem; font-size: 0.7rem; margin-left: 10px;">
+                    <i class="fas fa-headphones"></i> Listen Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offer Code Modal -->
+    <div class="offer-modal" id="offerModal">
+        <div class="offer-modal-content">
+            <h3><i class="fas fa-trophy"></i> Congratulations!</h3>
+            <p>You've successfully claimed the limited time offer!</p>
+            <p>Use this code to get your discount:</p>
+            <div class="offer-code" id="offerCode" onclick="copyOfferCode()">COVER5000</div>
+            <p>Click on the code to copy it</p>
+            <p>This code is valid for one use only and expires in <span id="modalCountdown">7 days</span>.</p>
+            <a href="#contact" class="btn" onclick="closeModal()">
+                <i class="fas fa-paper-plane"></i> Contact Me Now
+            </a>
+        </div>
+    </div>
+
+    <!-- Header - Adjusted for sliding bar -->
+    <header id="header">
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">A</div>
+                <div class="logo-text">Hit Production </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Work</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Creative Background Elements -->
+    <div class="creative-bg" id="creativeBg"></div>
+
+    <!-- Hero Section - Adjusted for sliding bar -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Your Vision, Perfectly Produced - Hit production </h1>
+                <p>From First Note to Final Master. Professional music production for rappers, singers, bands, and electronic artists.</p>
+                <div class="hero-buttons">
+                    <a href="#portfolio" class="btn">
+                        <i class="fas fa-headphones"></i> Listen to My Work
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-paper-plane"></i> Get a Quote
+                    </a>
+                </div>
+                <div class="hero-visual">
+                    <div class="audio-visualizer">
+                        <div class="bar" style="animation-delay: 0s"></div>
+                        <div class="bar" style="animation-delay: 0.1s"></div>
+                        <div class="bar" style="animation-delay: 0.2s"></div>
+                        <div class="bar" style="animation-delay: 0.3s"></div>
+                        <div class="bar" style="animation-delay: 0.4s"></div>
+                        <div class="bar" style="animation-delay: 0.5s"></div>
+                        <div class="bar" style="animation-delay: 0.6s"></div>
+                        <div class="bar" style="animation-delay: 0.7s"></div>
+                        <div class="bar" style="animation-delay: 0.8s"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sound-wave"></div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>My Services</h2>
+            <div class="services-grid" id="servicesGrid">
+                <!-- Services will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2>My Work</h2>
+            <div class="portfolio-container" id="portfolio-container">
+                <!-- Portfolio items will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section - Enhanced -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="profile-image fade-in">
+                    <div class="profile-placeholder" role="img" alt="Professional photo placeholder">
+                        <i class="fas fa-user"></i>
+                        Hit Production - Music Producer
+                    </div>
+                </div>
+                <div class="about-text fade-in">
+                    <h3>Hit Production</h3>
+                    <p>With over 7 years of experience in the music industry, I specialize in bringing artists' visions to life through professional music production. My expertise spans across multiple genres, ensuring that every project receives the attention and quality it deserves.</p>
+                    <p>I believe in collaborative creativity - working closely with artists to understand their vision and translate it into a polished, professional final product that stands out in today's competitive music landscape.</p>
+                    <p>From initial concept to final master, I'm dedicated to delivering exceptional quality and helping artists achieve their musical goals.</p>
+                    <div style="margin-top: 2rem;">
+                        <a href="#contact" class="btn">
+                            <i class="fas fa-envelope"></i> Work With Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Stats Section -->
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">7+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Client Satisfaction</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Genres Covered</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            
+            <!-- Eligibility Badge -->
+            <div class="eligibility-badge" id="eligibilityBadge">
+                <i class="fas fa-gift"></i> You are eligible for the Cover Song Discount Offer!
+            </div>
+            
+            <div class="contact-form fade-in">
+                <form id="quoteForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp">WhatsApp Number *</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="service">Service Interested In *</label>
+                            <select id="service" name="service" required>
+                                <option value="">Select a service</option>
+                                <option value="Complete Track Production">Complete Track Production</option>
+                                <option value="Mixing & Mastering Only">Mixing & Mastering Only</option>
+                                <option value="Full Cover Song Production">Full Cover Song Production</option>
+                                <option value="Reel Cover Song">Reel Cover Song</option>
+                                <option value="Beat Licensing">Beat Licensing</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="genre">Project Genre *</label>
+                            <select id="genre" name="genre" required>
+                                <option value="">Select genre</option>
+                                <option value="Hip-Hop/Rap">Hip-Hop/Rap</option>
+                                <option value="EDM/Electronic">EDM/Electronic</option>
+                                <option value="Pop">Pop</option>
+                                <option value="R&B">R&B</option>
+                                <option value="Rock">Rock</option>
+                                <option value="Bollywood">Bollywood</option>
+                                <option value="Classical">Classical</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="deadline">Project Deadline</label>
+                            <select id="deadline" name="deadline">
+                                <option value="">No specific deadline</option>
+                                <option value="ASAP">ASAP (within 3 days)</option>
+                                <option value="1 week">1 week</option>
+                                <option value="2 weeks">2 weeks</option>
+                                <option value="1 month">1 month</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="budget">Budget Range</label>
+                            <select id="budget" name="budget">
+                                <option value="">Select budget range</option>
+                                <option value="Under ₹5,000">Under ₹5,000</option>
+                                <option value="₹5,000 - ₹15,000">₹5,000 - ₹15,000</option>
+                                <option value="₹15,000 - ₹30,000">₹15,000 - ₹30,000</option>
+                                <option value="₹30,000+">₹30,000+</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="promoCode">Promo Code (if any)</label>
+                        <input type="text" id="promoCode" name="promoCode" placeholder="Enter your discount code">
+                    </div>
+                    
+                    <!-- Updated Links Section -->
+                    <div class="form-group links-section">
+                        <label>Reference Links (YouTube, Spotify, SoundCloud, etc.)</label>
+                        
+                        <div class="links-instructions">
+                            <h4><i class="fas fa-info-circle"></i> How to add links:</h4>
+                            <ul>
+                                <li>Add each link in a separate field</li>
+                                <li>Make sure links start with https://</li>
+                                <li>You can add as many links as you want</li>
+                                <li>Invalid links will be highlighted in red</li>
+                            </ul>
+                            <div class="links-example">
+                                https://youtube.com/watch?v=your-video<br>
+                                https://spotify.com/track/your-track<br>
+                                https://soundcloud.com/your-profile/your-track
+                            </div>
+                        </div>
+                        
+                        <div id="linksInputsContainer">
+                            <!-- Link inputs will be added here dynamically -->
+                        </div>
+                        
+                        <button type="button" class="add-link-btn" id="addLinkBtn">
+                            <i class="fas fa-plus"></i> Add Another Link
+                        </button>
+                        
+                        <div class="links-preview" id="linksPreview">
+                            <h4><i class="fas fa-eye"></i> Links Preview</h4>
+                            <div id="linksPreviewContent">
+                                <div class="no-links-message">No links added yet</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Hidden textarea for form submission -->
+                        <textarea id="referenceLinks" name="referenceLinks" style="display: none;"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Project Details *</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Tell me about your project, vision, and any specific requirements..." required></textarea>
+                    </div>
+                    
+                    <!-- Centered Submit Button -->
+                    <div class="submit-container">
+                        <button type="submit" class="btn" id="submitBtn">
+                            <i class="fas fa-paper-plane"></i> Submit Now
+                        </button>
+                    </div>
+                    
+                    <div class="form-message" id="formMessage"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Chat Box - Redesigned -->
+    <div class="floating-chat">
+        <div class="chat-box" id="chatBox">
+            <div class="chat-header">
+                <h4><i class="fas fa-headset"></i> Quick Assistance</h4>
+                <button class="close-chat" id="closeChat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chat-content">
+                <p>Need immediate help with your project? Contact me directly for quick responses.</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-label">Direct Call</div>
+                            <div class="contact-value">+91 6281822279</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-label">WhatsApp</div>
+                            <div class="contact-value">+91 6281822279</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-actions">
+                    <a href="tel:+916281822279" class="action-btn primary">
+                        <i class="fas fa-phone"></i> Call Now
+                    </a>
+                    <a href="https://wa.me/916281822279" class="action-btn secondary" target="_blank">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                </div>
+                
+                <div class="availability">
+                    <div class="availability-dot"></div>
+                    <div class="availability-text">Available now for urgent queries</div>
+                </div>
+            </div>
+        </div>
+        <button class="chat-button" id="chatButton">
+            <i class="fas fa-headset"></i>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">A</div>
+                <div class="logo-text">Hit Production</div>
+            </div>
+            <div class="social-links">
+                <a href="https://open.spotify.com/artist/your-profile" aria-label="Spotify" target="_blank"><i class="fab fa-spotify"></i></a>
+                <a href="https://instagram.com/alexvega.music" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com/c/AlexVegaMusic" aria-label="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="mailto:alexvega.music@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#portfolio">Work</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2025 Hit Production by Vocs Entertainmnet. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/portfolio.js"></script>
+    <script src="js/form-handler.js"></script>
+    <script src="js/chat.js"></script>
+
+    <!-- Add this to the footer-links section in index.html -->
+<div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#portfolio">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <!-- Add admin link -->
+    <a href="admin.html" style="color: var(--primary); font-weight: bold;">
+        <i class="fas fa-cog"></i> Admin
+    </a>
+</div>
+</body>
+</html>

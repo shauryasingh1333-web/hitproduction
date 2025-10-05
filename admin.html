@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Vega - Professional Music Producer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ea344f;
+            --primary-dark: #c41c35;
+            --primary-light: #ff5a72;
+            --dark-bg: #121212;
+            --dark-card: #181818;
+            --dark-hover: #282828;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B3B3B3;
+            --accent: #ea344f;
+            --offer-color: #ff6b35;
+            --gradient: linear-gradient(135deg, #ea344f, #ff8c42);
+            --gradient-dark: linear-gradient(135deg, #c41c35, #e67342);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hidden Admin Link - Only visible with secret key combination */
+        .admin-access {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            z-index: 9999;
+            opacity: 0.1;
+            transition: opacity 0.3s ease;
+        }
+
+        .admin-access:hover {
+            opacity: 1;
+        }
+
+        .admin-link {
+            background: var(--gradient);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Login Modal */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-content {
+            background: var(--dark-card);
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--primary);
+            animation: modalAppear 0.5s ease-out;
+        }
+
+        .login-content h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .login-form {
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(234, 52, 79, 0.2);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 1rem 2rem;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(234, 52, 79, 0.4);
+        }
+
+        .btn-full {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .login-message {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        .login-message.error {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid #dc3545;
+            color: #dc3545;
+            display: block;
+        }
+
+        /* Admin Panel Styles */
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            z-index: 10001;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-header h1 {
+            font-size: 2rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .admin-card {
+            background: var(--dark-card);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-card h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .portfolio-items {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .portfolio-items th,
+        .portfolio-items td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .portfolio-items th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .portfolio-items tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .status-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            display: none;
+        }
+
+        .status-message.success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4CAF50;
+            color: #4CAF50;
+            display: block;
+        }
+
+        .status-message.error {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid #dc3545;
+            color: #dc3545;
+            display: block;
+        }
+
+        .preview-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .preview-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10002;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--dark-card);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--primary);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            color: var(--primary);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .close-modal:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        @keyframes modalAppear {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .portfolio-items {
+                display: block;
+                overflow-x: auto;
+            }
+            .admin-panel {
+                padding: 1rem;
+            }
+        }
+
+        /* Your existing styles remain the same... */
+        /* [Previous CSS code for the main site would go here] */
+    </style>
+</head>
+<body>
+    <!-- Hidden Admin Access - Only visible with secret key or hover -->
+    <div class="admin-access" id="adminAccess">
+        <a href="#" class="admin-link" id="adminLink">
+            <i class="fas fa-cog"></i> Admin
+        </a>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-content">
+            <h2><i class="fas fa-lock"></i> Admin Access</h2>
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-full">
+                    <i class="fas fa-sign-in-alt"></i> Enter Admin Panel
+                </button>
+            </form>
+            <div class="login-message" id="loginMessage"></div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h1>Portfolio Management</h1>
+            <button class="btn btn-secondary" id="closeAdmin">
+                <i class="fas fa-times"></i> Close Admin
+            </button>
+        </div>
+
+        <!-- Status Message -->
+        <div class="status-message" id="statusMessage"></div>
+
+        <!-- Add Portfolio Item Form -->
+        <div class="admin-card">
+            <h2><i class="fas fa-plus-circle"></i> Add New Portfolio Item</h2>
+            <form id="addPortfolioForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="title">Title *</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Type *</label>
+                        <select id="type" name="type" required>
+                            <option value="">Select type</option>
+                            <option value="spotify">Spotify Track</option>
+                            <option value="spotify-album">Spotify Album</option>
+                            <option value="youtube">YouTube Video</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="spotifyUrl">Spotify URL (for Spotify items)</label>
+                        <input type="url" id="spotifyUrl" name="spotifyUrl" placeholder="https://open.spotify.com/track/...">
+                    </div>
+                    <div class="form-group">
+                        <label for="embedUrl">Embed URL (for Spotify items)</label>
+                        <input type="url" id="embedUrl" name="embedUrl" placeholder="https://open.spotify.com/embed/track/...">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="youtubeUrl">YouTube Embed URL (for YouTube items)</label>
+                    <input type="url" id="youtubeUrl" name="youtubeUrl" placeholder="https://www.youtube.com/embed/...">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="3" placeholder="Brief description of this work..."></textarea>
+                </div>
+                <button type="submit" class="btn">
+                    <i class="fas fa-save"></i> Add Portfolio Item
+                </button>
+            </form>
+        </div>
+
+        <!-- Portfolio Items List -->
+        <div class="admin-card">
+            <h2><i class="fas fa-list"></i> Portfolio Items</h2>
+            <div id="portfolioList">
+                <!-- Portfolio items will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="admin-card preview-section">
+            <h2><i class="fas fa-eye"></i> Preview</h2>
+            <div id="previewContainer">
+                <p>Add a portfolio item to see preview</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Deletion</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <p>Are you sure you want to delete this portfolio item? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelDelete">Cancel</button>
+                <button class="btn btn-danger" id="confirmDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Your existing HTML content for the main site goes here -->
+    <!-- [Previous HTML code for the main site would go here] -->
+
+    <script>
+        // Password Protection
+        const ADMIN_PASSWORD = "music2024"; // Change this to your preferred password
+        
+        // DOM Elements
+        const adminAccess = document.getElementById('adminAccess');
+        const adminLink = document.getElementById('adminLink');
+        const loginModal = document.getElementById('loginModal');
+        const loginForm = document.getElementById('loginForm');
+        const loginMessage = document.getElementById('loginMessage');
+        const adminPanel = document.getElementById('adminPanel');
+        const closeAdmin = document.getElementById('closeAdmin');
+        
+        // Portfolio Management
+        const addPortfolioForm = document.getElementById('addPortfolioForm');
+        const portfolioList = document.getElementById('portfolioList');
+        const statusMessage = document.getElementById('statusMessage');
+        const deleteModal = document.getElementById('deleteModal');
+        const cancelDelete = document.getElementById('cancelDelete');
+        const confirmDelete = document.getElementById('confirmDelete');
+        const closeModal = document.querySelector('.close-modal');
+        const previewContainer = document.getElementById('previewContainer');
+        
+        let portfolioItems = [];
+        let itemToDelete = null;
+
+        // Secret key combination to reveal admin access
+        let konamiCode = [];
+        const secretCode = [
+            'ArrowUp', 'ArrowUp', 
+            'ArrowDown', 'ArrowDown', 
+            'ArrowLeft', 'ArrowRight', 
+            'ArrowLeft', 'ArrowRight', 
+            'KeyB', 'KeyA'
+        ];
+
+        // Listen for secret key combination
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.code);
+            
+            // Keep only the last 10 keys
+            if (konamiCode.length > secretCode.length) {
+                konamiCode.shift();
+            }
+            
+            // Check if the code matches
+            if (JSON.stringify(konamiCode) === JSON.stringify(secretCode)) {
+                adminAccess.style.opacity = '1';
+                showStatus('Admin access unlocked!', 'success');
+                
+                // Reset the code
+                konamiCode = [];
+            }
+        });
+
+        // Show admin login when admin link is clicked
+        adminLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'flex';
+        });
+
+        // Handle login form submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const password = document.getElementById('adminPassword').value;
+            
+            if (password === ADMIN_PASSWORD) {
+                // Successful login
+                loginModal.style.display = 'none';
+                adminPanel.style.display = 'block';
+                loadPortfolioItems();
+                loginForm.reset();
+                loginMessage.style.display = 'none';
+            } else {
+                // Failed login
+                loginMessage.textContent = 'Invalid password. Please try again.';
+                loginMessage.className = 'login-message error';
+            }
+        });
+
+        // Close admin panel
+        closeAdmin.addEventListener('click', () => {
+            adminPanel.style.display = 'none';
+        });
+
+        // Portfolio Management Functions
+        function loadPortfolioItems() {
+            const savedItems = localStorage.getItem('musicProducerPortfolio');
+            if (savedItems) {
+                portfolioItems = JSON.parse(savedItems);
+            } else {
+                // Initialize with default items if none exist
+                portfolioItems = [
+                    {
+                        id: 1,
+                        title: "Latest Release - 'Midnight Dreams'",
+                        spotifyUrl: "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+                        embedUrl: "https://open.spotify.com/embed/track/4cOdK2wGLETKBW3PvgPWqT?utm_source=generator&theme=1",
+                        description: "My newest track showcasing modern production techniques with melodic elements",
+                        type: "spotify"
+                    },
+                    {
+                        id: 2,
+                        title: "Popular Album - 'Urban Echoes'",
+                        spotifyUrl: "https://open.spotify.com/album/4aawyAB9vmqN3uQ7FjRGTy",
+                        embedUrl: "https://open.spotify.com/embed/album/4aawyAB9vmqN3uQ7FjRGTy?utm_source=generator&theme=1",
+                        description: "Full album production work featuring various artists",
+                        type: "spotify"
+                    },
+                    {
+                        id: 3,
+                        title: "YouTube - 'Summer Vibes' Music Video",
+                        youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                        description: "Official music video with cinematic visuals and professional audio mixing",
+                        type: "youtube"
+                    }
+                ];
+                savePortfolioItems();
+            }
+            renderPortfolioList();
+            updatePreview();
+        }
+
+        function savePortfolioItems() {
+            localStorage.setItem('musicProducerPortfolio', JSON.stringify(portfolioItems));
+        }
+
+        function renderPortfolioList() {
+            if (portfolioItems.length === 0) {
+                portfolioList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-music"></i>
+                        <h3>No Portfolio Items</h3>
+                        <p>Add your first portfolio item using the form above.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = `
+                <table class="portfolio-items">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            portfolioItems.forEach(item => {
+                html += `
+                    <tr>
+                        <td>${item.title}</td>
+                        <td>${item.type}</td>
+                        <td>${item.description || 'No description'}</td>
+                        <td class="actions">
+                            <button class="btn btn-sm btn-secondary" onclick="editPortfolioItem(${item.id})">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="showDeleteModal(${item.id})">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+            `;
+
+            portfolioList.innerHTML = html;
+        }
+
+        function updatePreview() {
+            if (portfolioItems.length === 0) {
+                previewContainer.innerHTML = '<p>Add a portfolio item to see preview</p>';
+                return;
+            }
+
+            let html = '<h3>Latest Portfolio Items Preview</h3>';
+            
+            // Show last 2 items as preview
+            const previewItems = portfolioItems.slice(-2);
+            
+            previewItems.forEach(item => {
+                if (item.type.includes('spotify')) {
+                    const height = item.type === 'spotify-album' ? '380' : '352';
+                    html += `
+                        <div class="preview-item">
+                            <h4>${item.title}</h4>
+                            <div style="border-radius:12px; overflow:hidden; margin-top:10px;">
+                                <iframe style="border-radius:12px" src="${item.embedUrl}" 
+                                        width="100%" height="${height}" frameBorder="0" 
+                                        allowfullscreen="" 
+                                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                        loading="lazy">
+                                </iframe>
+                            </div>
+                            ${item.description ? `<p style="margin-top: 10px;">${item.description}</p>` : ''}
+                        </div>
+                    `;
+                } else if (item.type === 'youtube') {
+                    html += `
+                        <div class="preview-item">
+                            <h4>${item.title}</h4>
+                            <div style="margin-top:10px;">
+                                <iframe width="100%" height="315" src="${item.youtubeUrl}" 
+                                        title="YouTube video player" frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                            ${item.description ? `<p style="margin-top: 10px;">${item.description}</p>` : ''}
+                        </div>
+                    `;
+                }
+            });
+            
+            previewContainer.innerHTML = html;
+        }
+
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message ${type}`;
+            
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // Add portfolio item
+        addPortfolioForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const title = formData.get('title');
+            const type = formData.get('type');
+            const spotifyUrl = formData.get('spotifyUrl');
+            const embedUrl = formData.get('embedUrl');
+            const youtubeUrl = formData.get('youtubeUrl');
+            const description = formData.get('description');
+            
+            // Validate required fields
+            if (!title || !type) {
+                showStatus('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            // Validate URLs based on type
+            if (type.includes('spotify') && (!spotifyUrl || !embedUrl)) {
+                showStatus('Please provide both Spotify URL and Embed URL for Spotify items', 'error');
+                return;
+            }
+            
+            if (type === 'youtube' && !youtubeUrl) {
+                showStatus('Please provide YouTube Embed URL for YouTube items', 'error');
+                return;
+            }
+            
+            // Create new portfolio item
+            const newItem = {
+                id: Date.now(), // Simple ID generation
+                title,
+                type,
+                description
+            };
+            
+            // Add URLs based on type
+            if (type.includes('spotify')) {
+                newItem.spotifyUrl = spotifyUrl;
+                newItem.embedUrl = embedUrl;
+            } else if (type === 'youtube') {
+                newItem.youtubeUrl = youtubeUrl;
+            }
+            
+            // Add to portfolio
+            portfolioItems.push(newItem);
+            savePortfolioItems();
+            renderPortfolioList();
+            updatePreview();
+            
+            // Reset form
+            addPortfolioForm.reset();
+            
+            showStatus('Portfolio item added successfully!', 'success');
+        });
+
+        // Edit portfolio item
+        window.editPortfolioItem = function(id) {
+            const item = portfolioItems.find(item => item.id === id);
+            if (item) {
+                // Populate form with item data
+                document.getElementById('title').value = item.title;
+                document.getElementById('type').value = item.type;
+                document.getElementById('spotifyUrl').value = item.spotifyUrl || '';
+                document.getElementById('embedUrl').value = item.embedUrl || '';
+                document.getElementById('youtubeUrl').value = item.youtubeUrl || '';
+                document.getElementById('description').value = item.description || '';
+                
+                // Remove the item (we'll add it again with the form submission)
+                portfolioItems = portfolioItems.filter(item => item.id !== id);
+                savePortfolioItems();
+                renderPortfolioList();
+                
+                showStatus('Item loaded for editing. Update the form and click "Add Portfolio Item" to save changes.', 'success');
+            }
+        };
+
+        // Show delete confirmation modal
+        window.showDeleteModal = function(id) {
+            itemToDelete = id;
+            deleteModal.style.display = 'flex';
+        };
+
+        // Confirm deletion
+        confirmDelete.addEventListener('click', function() {
+            if (itemToDelete) {
+                portfolioItems = portfolioItems.filter(item => item.id !== itemToDelete);
+                savePortfolioItems();
+                renderPortfolioList();
+                updatePreview();
+                showStatus('Portfolio item deleted successfully!', 'success');
+                itemToDelete = null;
+                deleteModal.style.display = 'none';
+            }
+        });
+
+        // Cancel deletion
+        cancelDelete.addEventListener('click', function() {
+            itemToDelete = null;
+            deleteModal.style.display = 'none';
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', function() {
+            deleteModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === deleteModal) {
+                deleteModal.style.display = 'none';
+            }
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+        });
+
+        // Initialize the main site portfolio (this would be in your main site JS)
+        function initializeMainSitePortfolio() {
+            const portfolioContainer = document.getElementById('portfolio-container');
+            if (!portfolioContainer) return;
+            
+            const savedItems = localStorage.getItem('musicProducerPortfolio');
+            let itemsToDisplay = [];
+            
+            if (savedItems) {
+                itemsToDisplay = JSON.parse(savedItems);
+            } else {
+                // Fallback to default items
+                itemsToDisplay = portfolioItems;
+            }
+            
+            portfolioContainer.innerHTML = '';
+            
+            if (itemsToDisplay.length === 0) {
+                portfolioContainer.innerHTML = `
+                    <div class="no-tracks-message" style="text-align: center; padding: 3rem;">
+                        <i class="fas fa-music" style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 1rem;"></i>
+                        <h3>No tracks available yet</h3>
+                        <p>Check back soon for new releases!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            itemsToDisplay.forEach(item => {
+                let portfolioItem;
+                
+                if (item.type.includes("spotify")) {
+                    const height = item.type === 'spotify-album' ? '380' : '352';
+                    portfolioItem = document.createElement('div');
+                    portfolioItem.className = 'spotify-player fade-in';
+                    portfolioItem.innerHTML = `
+                        <div class="track-header">
+                            <h3>${item.title}</h3>
+                            <a href="${item.spotifyUrl}" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                                <i class="fab fa-spotify"></i> Open in Spotify
+                            </a>
+                        </div>
+                        <div class="spotify-embed">
+                            <iframe style="border-radius:12px" src="${item.embedUrl}" 
+                                    width="100%" height="${height}" frameBorder="0" 
+                                    allowfullscreen="" 
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                    loading="lazy">
+                            </iframe>
+                        </div>
+                        ${item.description ? `<p style="margin-top: 1rem;">${item.description}</p>` : ''}
+                    `;
+                } else if (item.type === "youtube") {
+                    portfolioItem = document.createElement('div');
+                    portfolioItem.className = 'youtube-player fade-in';
+                    portfolioItem.innerHTML = `
+                        <div class="track-header">
+                            <h3>${item.title}</h3>
+                            <a href="${item.youtubeUrl}" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                                <i class="fab fa-youtube"></i> Watch on YouTube
+                            </a>
+                        </div>
+                        <div class="youtube-embed">
+                            <iframe width="100%" height="315" src="${item.youtubeUrl}" 
+                                    title="YouTube video player" frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                        ${item.description ? `<p style="margin-top: 1rem;">${item.description}</p>` : ''}
+                    `;
+                }
+                
+                if (portfolioItem) {
+                    portfolioContainer.appendChild(portfolioItem);
+                }
+            });
+        }
+
+        // Initialize main site portfolio when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMainSitePortfolio();
+        });
+    </script>
+</body>
+</html>
